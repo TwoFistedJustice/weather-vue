@@ -2,6 +2,11 @@
 node_modules
 jspm_packages
 
+# inspection files
+output.js
+notes-to-self.txt
+
+
 # Optional npm cache directory
 .npm
 
