@@ -1,20 +1,17 @@
 **INTRODUCTION**
 
-This is a small command line weather applet running on Node.js. It fetches the current
-weather for the location you give it. You can enter a street address, a city, or a 
-postal code. It will tell you the current temperature, the apparent temperature, 
-the expected high temperature, the expected high UV Index, and what time to expect
-those highs to occur. It will also give you the current air quality for the location,
-based on US EPA guidelines.
+This is a Vue JS weather app based on my previous Node command-line weather app. 
+It fetches the current weather for the location you give it. You can enter a street
+address, a city, or a postal code. It will tell you the current temperature, the 
+apparent temperature, the expected high temperature, the expected high UV Index, 
+and what time to expect those highs to occur. It will also give you the current 
+air quality for the location, based on US EPA guidelines.
 
-It was built for the purpose of learning Node.js. In real life you would probably be
-better served by just downloading a proper weather app for your phone. But if you really
-want to use it, I can't stop you, though I make no claims or warranties as to the quality 
-of the forecast or advice.
+It is built in order to learn how to integrate a Node back-end into a VueJS front end.
 
 **Current Version**
 
-1.0.0
+1.0.0-alpha
 
 **Versioning**
 
