@@ -11,7 +11,7 @@ It is built in order to learn how to integrate a Node back-end into a VueJS fron
 
 **Current Version**
 
-1.0.0-alpha
+1.0.1-alpha
 
 **Versioning**
 
