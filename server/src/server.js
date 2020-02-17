@@ -17,7 +17,7 @@ server.get ('/', (req, res) => {
 
 
 server.listen (port, () => {
-console.log('CORS-enabled server listening on ${port}');
+console.log(`CORS-enabled server listening on ${port}`);
 });
 
 
