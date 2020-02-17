@@ -9,7 +9,9 @@ server.use(bodyParser.json());
 server.use(cors());
 
 server.get ('/', (req, res) => {
-  res.send ('Server respoding');
+  res.send({
+    message: 'If you can read this, it worked!'
+  });
 })
 
 
