@@ -5,3 +5,6 @@ export default() => {
     baseURL: `http://localhost:8081`
   })
 };
+
+/* Imported in ./vueweatherService.js
+* */

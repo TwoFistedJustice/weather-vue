@@ -7,7 +7,7 @@
 </template>
 
 <script>
-    import weatherService from "../services/weatherService.js";
+    import weatherService from "../services/vueweatherService.js";
 
     export default {
       data () {
