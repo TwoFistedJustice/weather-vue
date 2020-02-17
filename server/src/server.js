@@ -8,7 +8,7 @@ let port = process.env.PORT | 8081;
 server.use(bodyParser.json());
 server.use(cors());
 
-server.get ('/', (req, res) => {
+server.get ('/weather', (req, res) => {
   res.send({
     message: 'If you can read this, it worked!'
   });

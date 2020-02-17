@@ -1,11 +1,17 @@
-import HelloWorld from "../components/HelloWorld";
+// import HelloWorld from "../components/HelloWorld";
+import Weather from "../components/Weather";
 
 
 const routes = [
   {path: '/',
-  name: 'hello',
-  component: HelloWorld
- }
+    name: 'weather',
+    component: Weather
+ },
+  {
+    path: '/weather',
+    name: 'weather',
+    component: Weather
+  }
  
 ];
 
