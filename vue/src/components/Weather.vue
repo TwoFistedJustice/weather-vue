@@ -23,7 +23,7 @@
       methods: {
         async getWeather () {
           const response = await weatherService.fetchWeather();
-          alert(response.data.message)
+          // alert(response.data.message)
           this.weather = response.data;
         }
       }

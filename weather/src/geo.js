@@ -1,5 +1,5 @@
 const axios = require('axios');
-const config = require('../../keys.js');
+const config = require('../keys.js');
 const mapQuestKey = config.mapQuestNodeWeatherKey;
 
 var geoData = {

@@ -2,8 +2,9 @@
   "name": "weather",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "src/app.js",
   "scripts": {
+    "dev": "nodemon src/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -12,32 +13,29 @@
   "dependencies": {
     "axios": "^0.19.2",
     "lodash": "^4.17.15",
-    "yargs": "^15.1.0"
+    "yargs": "^15.1.0",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.3",
-    "eslint": "^6.7.2"
+    "eslint": "^6.7.2",
+    "nodemon": "^2.0.2"
   },
   "eslintConfig": {
     "root": true,
     "env": {
-      "node": true
+      "es6": true
     },
     "parserOptions": {
-      "ecmaVersion": 2017
-    },
-
-    "env": {
-      "es6": true
+      "parser": "babel-eslint"
     },
     "extends": [
       "eslint:recommended"
     ],
     "rules": {
       "no-console": "off"
-    },
-    "parserOptions": {
-      "parser": "babel-eslint"
     }
   },
   "browserslist": [
