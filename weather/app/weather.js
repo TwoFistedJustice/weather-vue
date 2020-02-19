@@ -1,6 +1,5 @@
 const axios = require('axios');
-// const config = require('../../config/config');
-const config = require('../../../../config/config.js');
+const config = require('../../keys.js');
 const darkSkyKey = config.darkSkyKey;
 const airVisualKey = config.airVisualKey;
 

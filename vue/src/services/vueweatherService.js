@@ -1,7 +1,10 @@
 import vueAxiosService from './vueAxiosService.js';
+// const argv = require('../../../weather/app/app.js');
+import argv from '../../../weather/app/app.js';
 
 export default {
   fetchWeather() {
+    alert(argv);
     return vueAxiosService().get('/weather');
   }
 };

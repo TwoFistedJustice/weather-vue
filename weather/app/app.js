@@ -13,7 +13,7 @@ const nameOptions = {
   alias: 's'
 };
 
-const argv = yargs
+export const argv = yargs
   .options({
     a: {
       describe: 'Get weather for a given location. Use double quotes in Windows.',
@@ -128,12 +128,3 @@ if (argv.a !== undefined) {
 }
 
 
-
-
-
-
-/* next up:
-    *Low Priority*
-make list print each location on its own line and make it pretty
-
-* */

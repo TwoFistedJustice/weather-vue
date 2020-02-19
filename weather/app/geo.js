@@ -1,7 +1,5 @@
-const gooleGeoURL = `https://maps.googleapis.com/maps/api/geocode/json?address=91740`
 const axios = require('axios');
-// const config = require('../../config/config');
-const config = require('../../../../config/config.js');
+const config = require('../../keys.js');
 const mapQuestKey = config.mapQuestNodeWeatherKey;
 
 var geoData = {
