@@ -23,7 +23,7 @@ app.use (cors ());
 const getWeather = async (geoData) => {
   try {
     let weatherData = await weather.fetchWeather(geoData);
-    return displayWeatherReport(weatherData);
+    return formatWeatherReport(weatherData);
   }
   catch (err){
     throw new Error(err);
@@ -31,7 +31,7 @@ const getWeather = async (geoData) => {
 };
 
 
-const displayWeatherReport = (fetchedData) => {
+const formatWeatherReport = (fetchedData) => {
   
   return {
     uvHighTime: convertUnixtime (fetchedData.time.uvIndexTime),
