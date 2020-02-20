@@ -19,18 +19,8 @@ app.use (bodyParser.json ());
 app.use (cors ());
 
 
-// const getWeather = (geoData) => {
-//   console.log(geoData);
-//   return weather.fetchWeather (geoData)
-//     .then ((weatherData) => {
-//       return displayWeatherReport (weatherData);
-//     }).catch ((err) => {
-//       console.log (err.message);
-//     });
-// };
 
 const getWeather = async (geoData) => {
-  
   try {
     let weatherData = await weather.fetchWeather(geoData);
     return displayWeatherReport(weatherData);
@@ -38,30 +28,10 @@ const getWeather = async (geoData) => {
   catch (err){
     throw new Error(err);
   }
-  
-  
-  
-  
-  
 };
 
-/*
-const displayList = (list) => {
-  for (let i = 0; i < list.length; i++) {
-    let item = list[i];
-    if (item.default === true) {
-      console.log (`------>  Nickname: ${item.nickname}, City: ${item.name} <------ DEFAULT`);
-    } else {
-      console.log (`Nickname: ${item.nickname}, City: ${item.name}`);
-    }
-    
-  }
-};
-*/
 
 const displayWeatherReport = (fetchedData) => {
-  // fetchedData = {message: "it worked!"};
-  //  return fetchedData;
   
   return {
     uvHighTime: convertUnixtime (fetchedData.time.uvIndexTime),
@@ -70,12 +40,6 @@ const displayWeatherReport = (fetchedData) => {
     uvRating: interpret.uvIndexLevel (fetchedData.daily.uvIndex),
     aqi: interpret.ozoneLevel (fetchedData.daily.aqiUS)
   };
-  // let uvHighTime = convertUnixtime (fetchedData.time.uvIndexTime);
-  // let hottestTime = convertUnixtime (fetchedData.time.temperatureHighTime);
-  // let hottestApparentTime = convertUnixtime (fetchedData.time.apparentTemperatureHighTime);
-  // let uvRating = interpret.uvIndexLevel (fetchedData.daily.uvIndex);
-  // let aqi = interpret.ozoneLevel (fetchedData.daily.aqiUS);
-  //
   // console.log (`${fetchedData.name}:`);
   // console.log (`It is ${fetchedData.current.temperature} degrees, but feels like ${fetchedData.current.apparentTemperature} degrees.`);
   // console.log (`It will reach ${fetchedData.daily.temperatureHigh} degrees at ${hottestTime}.`)
@@ -106,10 +70,8 @@ app.get ('/weather', async (req, res) => {
   
   }
   catch (err){
-    
     throw new Error(err)
   }
-  
   });
 
 

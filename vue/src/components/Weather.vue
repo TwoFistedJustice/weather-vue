@@ -1,7 +1,8 @@
 <template>
     <div>
         <h1><img alt="Vue logo" src="../assets/logo.png">eather?</h1>
-        <p>{{weather.message}}</p>
+        <!----><p>{{weather.message}}</p>
+        <p>{{weather.name}}</p>
 
     </div>
 </template>
@@ -23,7 +24,6 @@
       methods: {
         async getWeather () {
           const response = await weatherService.fetchWeather();
-          // alert(response.data.message)
           this.weather = response.data;
         }
       }
