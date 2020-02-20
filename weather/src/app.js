@@ -30,16 +30,31 @@ const getWeather = async (geoData) => {
   }
 };
 
-
+// this function is important because it converts unix time to people time
 const formatWeatherReport = (fetchedData) => {
   
-  return {
-    uvHighTime: convertUnixtime (fetchedData.time.uvIndexTime),
-    hottestTime: convertUnixtime (fetchedData.time.temperatureHighTime),
-    hottestApparentTime: convertUnixtime (fetchedData.time.apparentTemperatureHighTime),
-    uvRating: interpret.uvIndexLevel (fetchedData.daily.uvIndex),
-    aqi: interpret.ozoneLevel (fetchedData.daily.aqiUS)
-  };
+  Object.defineProperties(fetchedData, {
+    appData: {
+      value: {
+        uvHighTime: convertUnixtime (fetchedData.time.uvIndexTime),
+        hottestTime: convertUnixtime (fetchedData.time.temperatureHighTime),
+        hottestApparentTime: convertUnixtime (fetchedData.time.apparentTemperatureHighTime),
+        uvRating: interpret.uvIndexLevel (fetchedData.daily.uvIndex),
+        aqi: interpret.ozoneLevel (fetchedData.daily.aqiUS),
+      },
+      enumerable: true,
+      writable: true
+    }
+  });
+  return fetchedData;
+  
+  // return {
+  //   uvHighTime: convertUnixtime (fetchedData.time.uvIndexTime),
+  //   hottestTime: convertUnixtime (fetchedData.time.temperatureHighTime),
+  //   hottestApparentTime: convertUnixtime (fetchedData.time.apparentTemperatureHighTime),
+  //   uvRating: interpret.uvIndexLevel (fetchedData.daily.uvIndex),
+  //   aqi: interpret.ozoneLevel (fetchedData.daily.aqiUS)
+  // };
   // console.log (`${fetchedData.name}:`);
   // console.log (`It is ${fetchedData.current.temperature} degrees, but feels like ${fetchedData.current.apparentTemperature} degrees.`);
   // console.log (`It will reach ${fetchedData.daily.temperatureHigh} degrees at ${hottestTime}.`)
@@ -65,7 +80,7 @@ app.get ('/weather', async (req, res) => {
   try{
     const geoData = await geo.fetchGeoData(94112);
     const weatherReport = await getWeather(geoData);
-    console.log('out',weatherReport);
+    // console.log('out',weatherReport);
     res.send(weatherReport);
   
   }
