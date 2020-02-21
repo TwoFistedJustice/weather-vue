@@ -48,19 +48,6 @@ const formatWeatherReport = (fetchedData) => {
   });
   return fetchedData;
   
-  // return {
-  //   uvHighTime: convertUnixtime (fetchedData.time.uvIndexTime),
-  //   hottestTime: convertUnixtime (fetchedData.time.temperatureHighTime),
-  //   hottestApparentTime: convertUnixtime (fetchedData.time.apparentTemperatureHighTime),
-  //   uvRating: interpret.uvIndexLevel (fetchedData.daily.uvIndex),
-  //   aqi: interpret.ozoneLevel (fetchedData.daily.aqiUS)
-  // };
-  // console.log (`${fetchedData.name}:`);
-  // console.log (`It is ${fetchedData.current.temperature} degrees, but feels like ${fetchedData.current.apparentTemperature} degrees.`);
-  // console.log (`It will reach ${fetchedData.daily.temperatureHigh} degrees at ${hottestTime}.`)
-  // console.log (`It will feel the hottest at ${hottestApparentTime}`);
-  // console.log (`Maximum UV exposure will be ${uvRating} and will be highest at ${uvHighTime}. `);
-  // console.log (`The air quality will be ${aqi}.`)
 };
 
 /*
