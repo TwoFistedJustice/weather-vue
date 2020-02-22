@@ -1,6 +1,7 @@
 <template>
     <div>
-        <h1><img alt="Vue logo" src="../assets/logo.png">eather?</h1>
+<!--        <h1><img alt="Vue logo" src="../assets/logo.png">eather?</h1>-->
+        <h2>{{weather.name}}</h2>
         <h3>UV Info</h3>
         <p>The highest ultra-violet level will be {{weather.appData.uvRating}} at {{weather.appData.uvHighTime}}</p>
 
@@ -24,17 +25,19 @@
     export default {
       data () {
         return {
+          location: 94112,
           weather: {
-            message: 'No response to our hails Captain!'
+            message: 'No response to our hails Captain!',
+
           }
         };
       },
       mounted(){
-        this.getWeather();
+        this.getWeather(this.location);
       },
       methods: {
-        async getWeather () {
-          const response = await weatherService.fetchWeather();
+        async getWeather (location) {
+          const response = await weatherService.fetchWeather(location);
           this.weather = response.data;
         }
       }

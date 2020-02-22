@@ -62,10 +62,13 @@ const convertUnixtime = (unix_timestamp) => {
   return date.toLocaleTimeString ();
 };
 
-app.get ('/weather', async (req, res) => {
-  
+app.get ('/weather/:loc', async (req, res) => {
+  let location = req.params.loc;
+  console.dir(req.params.loc);
+  // console.log(req.params.loc.zip);
   try{
-    const geoData = await geo.fetchGeoData(94112);
+    // const geoData = await geo.fetchGeoData(94112);
+    const geoData = await geo.fetchGeoData(location);
     const weatherReport = await getWeather(geoData);
     // console.log('out',weatherReport);
     res.send(weatherReport);

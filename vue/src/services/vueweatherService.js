@@ -1,8 +1,11 @@
 import vueAxiosService from './vueAxiosService.js';
 
 export default {
-  fetchWeather() {
-    return vueAxiosService().get('/weather');
+  fetchWeather(location) {
+    
+    let route = '/weather/';
+    // return vueAxiosService().get(`/weather/ ${location}`);
+    return vueAxiosService().get(`${route} ${location}`);
   }
 };
 
