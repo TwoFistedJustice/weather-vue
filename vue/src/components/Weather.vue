@@ -7,7 +7,15 @@
                     id="getLocation"
                     v-on:keyup.enter="getWeather"
                     v-model.lazy="location">
+            <div>
+                <p>latitude: {{coords_geoLocationAPI.lat}}</p>
+                <p>longitude: {{coords_geoLocationAPI.long}}</p>
+            </div>
             <button @click="getWeather">Get my weather!</button>
+            <button @click="fetch_Coordinates_geoLocationAPI">Get My Location</button>
+        </div>
+        <div>
+<p>{{status_geoLocationAPI}}</p>
         </div>
 
         <div v-if="displayReport">
@@ -38,30 +46,49 @@
   export default {
     data () {
       return {
+        coords_geoLocationAPI: {
+          lat: null,
+          long: null
+        },
         displayReport: false,
         location: '',
         weather: {
           message: 'No response to our hails Captain!',
 
-        }
+        },
+        status_geoLocationAPI: null,
+        options_geoLocationAPI: {
+          enableHighAccuracy: false,
+          timeout: 5000,
+          maximumAge: 10000
+        },
       };
     },
-    mounted () {
-      // this.getWeather(this.location);
-      this.getWeather ();
-    },
     methods: {
-      // async getWeatherOLD (location) {
-      //   try {
-      //     const response = await weatherService.fetchWeather (location);
-      //     this.displayReport = true;
-      //     this.weather = response.data;
-      //   } catch (err) {
-      //     if (err) ;
-      //     throw new Error (err);
-      //   }
-      //
-      // },
+      error_geoLocationAPI (err) {
+        if (!navigator.geolocation){
+          this.status_geoLocationAPI = 'Geolocation is not supported by your browser';
+
+        } else if (err.code === 2) {
+          this.status_geoLocationAPI = 'Your browser may be blocking location services.';
+          console.warn(`geoLocationAPI error! ${err.code}\n${err.message}\n`);
+        } else {
+          console.warn(`geoLocationAPI error! ${err.code}\n${err.message}`);
+        }
+      },
+
+      successCB_geoLoctionAPI (pos) {
+        this.coords_geoLocationAPI.lat = pos.coords.latitude;
+        this.coords_geoLocationAPI.long = pos.coords.longitude;
+      },
+
+      fetch_Coordinates_geoLocationAPI () {
+        let success = this.successCB_geoLoctionAPI;
+        let error = this.error_geoLocationAPI;
+        let options = this.options_geoLocationAPI;
+        navigator.geolocation.getCurrentPosition(success, error, options );
+      },
+
       async getWeather () {
         this.displayReport = false;
         try {
