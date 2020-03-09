@@ -63,14 +63,14 @@ const convertUnixtime = (unix_timestamp) => {
 };
 
 app.get ('/weather/:loc', async (req, res) => {
+  // when typed by user it comes in as a string
   let location = req.params.loc;
-  console.dir(req.params.loc);
-  // console.log(req.params.loc.zip);
+  console.dir( req.params.loc);
+  
+  //geoData is in the form: { name: 'San Francisco', lat: 37.720647, lng: -122.442853 }
   try{
-    // const geoData = await geo.fetchGeoData(94112);
     const geoData = await geo.fetchGeoData(location);
     const weatherReport = await getWeather(geoData);
-    // console.log('out',weatherReport);
     res.send(weatherReport);
   
   }
