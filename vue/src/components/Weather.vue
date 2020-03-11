@@ -64,11 +64,13 @@
         },
       };
     },
+    mounted () {
+      // this.fetch_Coordinates_geoLocationAPI();
+      },
     methods: {
       error_geoLocationAPI (err) {
         if (!navigator.geolocation){
           this.status_geoLocationAPI = 'Geolocation is not supported by your browser';
-
         } else if (err.code === 2) {
           this.status_geoLocationAPI = 'Your browser may be blocking location services.';
           console.warn(`geoLocationAPI error! ${err.code}\n${err.message}\n`);
@@ -80,6 +82,7 @@
       successCB_geoLoctionAPI (pos) {
         this.coords_geoLocationAPI.lat = pos.coords.latitude;
         this.coords_geoLocationAPI.long = pos.coords.longitude;
+        this.getWeather();
       },
 
       fetch_Coordinates_geoLocationAPI () {
@@ -91,8 +94,19 @@
 
       async getWeather () {
         this.displayReport = false;
+        let coords = this.coords_geoLocationAPI;
+        // if either value is not set
+        let geo = !!coords.lat || !!coords.long;
+        console.log('geo active', geo, coords);
+        /* vueWeatherService converts the data into a Route
+        *  So the job of converting the object into a usable form falls to that
+        * */
+
+
         try {
-          const response = await weatherService.fetchWeather (this.location);
+          const response = !geo
+           ? await weatherService.fetchWeather (this.location)
+           : await weatherService.fetchWeather(this.coords_geoLocationAPI);
           this.displayReport = true;
           this.weather = response.data;
         } catch (err) {
