@@ -22,6 +22,7 @@
   "devDependencies": {
     "babel-eslint": "^10.0.3",
     "eslint": "^6.7.2",
+    "json-stringify-safe": "^5.0.1",
     "nodemon": "^2.0.2"
   },
   "eslintConfig": {
