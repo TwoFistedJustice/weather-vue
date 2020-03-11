@@ -1,6 +1,7 @@
 # user created files
 places.json
 keys.js
+re*.json
 
 # Dependency directories
 node_modules
