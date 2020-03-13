@@ -11,9 +11,6 @@ const weather = require ('./weather');
 const interpret = require('./interpretWeather');
 const places = require('./saveLocations');
 
-// for development
-const visual = require('./data-visualizer.js');
-
 let port = process.env.PORT | 8081;
 
 app.use (bodyParser.json ());
@@ -65,17 +62,10 @@ const convertUnixtime = (unix_timestamp) => {
 
 
 app.get ('/weather/:loc', async (req, res) => {
-  
   // when typed by user it comes in as a string
   let location = req.params.loc;
-  
   //geoData is in the form: { name: 'San Francisco', lat: 37.720647, lng: -122.442853 }
   try {
-  // todo make fs append the newest log to the top of the file so I don't have to scroll
-      if (req) {
-        // visual.eyesRequestLog(req)
-        // visual.eyesRequestDataFile(req);
-      }
     const geoData = await geo.fetchGeoData (location);
     const weatherReport = await getWeather (geoData);
     
@@ -94,8 +84,6 @@ app.get('/weatherGEO/:lat/:long', async (req, res) => {
   try {
     if (req) {
       const weatherReport = await getWeather(coordinates);
-      // visual.eyesValueLog(weatherReport);
-      // visual.eyesValueFile(weatherReport);
       res.send(weatherReport);
     }
     
