@@ -11,10 +11,8 @@ const weather = require ('./weather');
 const interpret = require('./interpretWeather');
 const places = require('./saveLocations');
 
-// dev constants
-const fs = require('fs');
-const stringify = require('json-stringify-safe');
-
+// for development
+const visual = require('./data-visualizer.js');
 
 let port = process.env.PORT | 8081;
 
@@ -65,34 +63,6 @@ const convertUnixtime = (unix_timestamp) => {
   return date.toLocaleTimeString ();
 };
 
-const fsCB = (err, data) => {
-  if (err) {
-    console.log('Error writing request to file from weather app');
-  }
-  console.log('Writing request to file');
-};
-
-const stringData = (req) => {
-  let fieldBreak = '\n\n**************** NEw REQUEST ****************';
-  let url = '\nurl: ' + stringify (req.url, null, 2);;
-  let route = '\nroute: ' + stringify (req.route, null, 2);
-  let params = '\nparams: ' + stringify (req.params, null, 2);
-  return `${fieldBreak}${url}${route}${params}`;
-  
-};
-
-const visualizeAppDataLog = (req) => {
-  console.log(stringData(req));
-};
-
-
-// This function will will block the event loop and prevent the GET request
-// from completing. Use it, manual debugging only, and then delete call.
-const visualizeAppDataFile = (req) => {
-  fs.appendFileSync ('request.json',stringData(req), fsCB);
-};
-
-
 
 app.get ('/weather/:loc', async (req, res) => {
   
@@ -103,8 +73,8 @@ app.get ('/weather/:loc', async (req, res) => {
   try {
   // todo make fs append the newest log to the top of the file so I don't have to scroll
       if (req) {
-        visualizeAppDataLog(req);
-        // visualizeAppDataFile(req)
+        // visual.eyesRequestLog(req)
+        // visual.eyesRequestDataFile(req);
       }
     const geoData = await geo.fetchGeoData (location);
     const weatherReport = await getWeather (geoData);
@@ -115,6 +85,26 @@ app.get ('/weather/:loc', async (req, res) => {
     throw new Error(err)
   }
   });
+
+app.get('/weatherGEO/:lat/:long', async (req, res) => {
+  let coordinates = {
+    lat: req.params.lat,
+    lng: req.params.long
+  };
+  try {
+    if (req) {
+      const weatherReport = await getWeather(coordinates);
+      // visual.eyesValueLog(weatherReport);
+      // visual.eyesValueFile(weatherReport);
+      res.send(weatherReport);
+    }
+    
+  } catch (err){
+    throw new Error(err);
+  }
+  
+});
+
 
 
 app.listen (port, () => {
