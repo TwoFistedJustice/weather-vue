@@ -1,25 +1,25 @@
 <template>
     <div>
-        <h1>Add an auto location grab</h1>
+        <h1>My Ubiquitous Weather App</h1>
         <div class="form-group">
             <input
                     type="text"
                     id="getLocation"
                     v-on:keyup.enter="getWeather"
                     v-model.lazy="location">
-            <div>
-                <p>latitude: {{coords_geoLocationAPI.lat}}</p>
-                <p>longitude: {{coords_geoLocationAPI.long}}</p>
-            </div>
-            <button @click="getWeather">Get my weather!</button>
-            <button @click="fetch_Coordinates_geoLocationAPI">Get My Location</button>
+<!--            <div>-->
+<!--                <p>latitude: {{coords_geoLocationAPI.lat}}</p>-->
+<!--                <p>longitude: {{coords_geoLocationAPI.long}}</p>-->
+<!--            </div>-->
+            <button @click="getWeather">Search weather!</button>
+            <button @click="getWeather_geoLocationAPI">Get weather here</button>
         </div>
         <div>
 <p>{{status_geoLocationAPI}}</p>
         </div>
 
         <div v-if="displayReport">
-            <h2>{{weather.name}}</h2>
+            <h2>{{weather.locale.city}}, {{weather.locale.state}}</h2>
             <h3>UV Info</h3>
             <p>The highest ultra-violet level will be {{weather.appData.uvRating}} at
                 {{weather.appData.uvHighTime}}</p>
@@ -51,7 +51,7 @@
           long: null
         },
         displayReport: false,
-        location: '',
+        location: '94112',
         weather: {
           message: 'No response to our hails Captain!',
 
@@ -66,6 +66,7 @@
     },
     mounted () {
       // this.fetch_Coordinates_geoLocationAPI();
+      // this.getWeather();
       },
     methods: {
       error_geoLocationAPI (err) {
@@ -94,19 +95,11 @@
 
       async getWeather () {
         this.displayReport = false;
-        let coords = this.coords_geoLocationAPI;
-        // if either value is not set
-        let geo = !!coords.lat || !!coords.long;
-        console.log('geo active', geo, coords);
         /* vueWeatherService converts the data into a Route
         *  So the job of converting the object into a usable form falls to that
         * */
-
-
         try {
-          const response = !geo
-           ? await weatherService.fetchWeather (this.location)
-           : await weatherService.fetchWeather(this.coords_geoLocationAPI);
+          const response = await weatherService.fetchWeather (this.location)
           this.displayReport = true;
           this.weather = response.data;
         } catch (err) {
@@ -114,7 +107,28 @@
           throw new Error (err);
         }
         this.location = '';
+      },
+
+      async getWeather_geoLocationAPI () {
+        this.fetch_Coordinates_geoLocationAPI();
+        this.displayReport = false;
+        let coords = this.coords_geoLocationAPI;
+        let geo = !!coords.lat || !!coords.long;
+        console.log('geo active', geo, coords);
+
+        try {
+          const response = await weatherService.fetchWeather_GeoLocationAPI(coords);
+          this.displayReport = true;
+          this.weather = response.data;
+
+        } catch (err){
+          if (err) ;
+          throw new Error (err);
+        }
+        this.location = '';
       }
+
+
     }
   };
 
