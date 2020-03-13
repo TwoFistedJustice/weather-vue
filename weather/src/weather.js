@@ -3,8 +3,14 @@ const config = require('../keys.js');
 const darkSkyKey = config.darkSkyKey;
 const airVisualKey = config.airVisualKey;
 
+
 var weatherData = {
   name: null,
+  locale: {
+    city: null,
+    state: null,
+    country: null
+  },
   current: {
     temperature: null,
     apparentTemperature: null,
@@ -25,7 +31,7 @@ var weatherData = {
 
 var fetchWeather = (geoData) => {
   var weatherEndPoint = `https://api.darksky.net/forecast/${darkSkyKey}/${geoData.lat},${geoData.lng}`;
-   weatherData.name = geoData.name;
+   // weatherData.name = geoData.name || 'ERROR NO NAME SPECIFIED';
   return axios.get(weatherEndPoint)
     .then((response)=>{
       recordCurrentData(response.data.currently);
@@ -33,6 +39,8 @@ var fetchWeather = (geoData) => {
       const aqiEndPoint  = `https://api.airvisual.com/v2/nearest_city?lat=${geoData.lat}&lon=${geoData.lng}&key=${airVisualKey}`;
       return axios.get(aqiEndPoint);
     }).then((response)=>{
+      
+      recordName(response.data.data);
       weatherData.daily.aqiUS = response.data.data.current.pollution.aqius;
       return weatherData;
     })
@@ -45,13 +53,21 @@ var fetchWeather = (geoData) => {
     });
 };
 
-var recordCurrentData = (currently) => {
+const recordName = (data) => {
+  weatherData.name = data.city;
+  weatherData.locale.city = data.city;
+  weatherData.locale.state = data.state;
+  weatherData.locale.country = data.country;
+  
+};
+
+const recordCurrentData = (currently) => {
   weatherData.current.temperature = Math.round(currently.temperature);
   weatherData.current.apparentTemperature = Math.round(currently.apparentTemperature);
   weatherData.current.uvIndex = Math.round(currently.uvIndex);
 };
 
-var recordDailyData = (daily) => {
+const recordDailyData = (daily) => {
   weatherData.daily.summaryWeekly = daily.summary;
   weatherData.daily.temperatureHigh = Math.round(daily.data[0].temperatureHigh);
   weatherData.daily.apparentTemperatureHigh = Math.round(daily.data[0].apparentTemperatureHigh);
