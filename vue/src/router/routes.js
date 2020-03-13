@@ -6,13 +6,7 @@ const routes = [
   {path: '/',
     name: 'weather',
     component: Weather
- },
-  {
-    path: '/weather',
-    name: 'weather',
-    component: Weather
-  }
- 
+ }
 ];
 
 
