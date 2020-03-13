@@ -1,14 +1,19 @@
 import vueAxiosService from './vueAxiosService.js';
 
 export default {
+  /* define a new function that accepts an object and sends the appropriate url to the router*/
+  
   fetchWeather(location) {
-    
     let route = '/weather/';
-    // return vueAxiosService().get(`/weather/ ${location}`);
-    return vueAxiosService().get(`${route} ${location}`);
-  }
-};
+    return vueAxiosService().get(`${route}${location}`);
+  },
+  
+  fetchWeather_GeoLocationAPI(coords) {
+    let route = `/weatherGEO/${coords.lat}/${coords.long}`; //params
+    return vueAxiosService().get(`${route}`);
+  },
 
+};
 /* reference to path in the GET request in '/weather' is in server/src/server.js*/
 
 
